@@ -35,6 +35,10 @@ class MainActivity : AppCompatActivity() , SharedPreferences.OnSharedPreferenceC
 
         val autoReplyTime = sharedPreferences.getString(getString(R.string.key_auto_reply_time),"")
         Log.i("MainActivity","Auto reply time $autoReplyTime")
+
+        val publicInfo = sharedPreferences.getStringSet(getString(R.string.key_public_info), null)
+        Log.i("MainActivity","Public infos $publicInfo")
+
     }
 
 
