@@ -8,16 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
-import androidx.preference.EditTextPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
+import androidx.preference.*
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings, rootKey)
+
+        val dataStore = DataStore()
 
         val accSettingPref = findPreference<Preference>(getString(R.string.key_account_settings))
 
@@ -27,9 +26,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             val navController = navHostFragment.navController
             val action = SettingsFragmentDirections.actionSettingsToAccSettings()
             navController.navigate(action)
-
-
-
             true
 
         }
@@ -57,11 +53,41 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
 
-
         }
+
+        val notifPref = findPreference<SwitchPreferenceCompat>(getString(R.string.key_new_msg_notif))
+        notifPref?.summaryProvider = Preference.SummaryProvider<SwitchPreferenceCompat>{ switchPref ->
+
+            if (switchPref?.isChecked!!)
+                "Status : ON"
+            else
+                "Status: OFF"
+        }
+        notifPref?.preferenceDataStore = dataStore
+
+        val isNotifEnabled = dataStore.getBoolean("key_new_msg_notif",false)
+        Log.i("DataStore", "getBoolean executed here $isNotifEnabled ")
+
+
 
 
     }
+
+    class DataStore : PreferenceDataStore (){
+
+        override fun getBoolean(key: String?, defValue: Boolean): Boolean {
+            if (key == "key_new_msg_notif")
+                Log.i("DataStore", "getBoolean executed for $key ")
+            return defValue
+        }
+
+        override fun putBoolean(key: String?, value: Boolean) {
+            if (key == "key_new_msg_notif")
+                Log.i("DataStore", "putBoolean executed for $key with new value: $value")
+        }
+
+    }
+
 
 
 }

@@ -60,7 +60,8 @@
             android:defaultValue="true"
             android:key="@string/key_new_msg_notif"
             android:title="@string/title_new_msg_notif"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false"
+             />
 
     </PreferenceCategory>
 
@@ -77,8 +78,23 @@
         <Preference
             android:key="@string/key_privacy_policy"
             android:title="@string/title_privacy_policy"
-            app:iconSpaceReserved="false" />
+            app:iconSpaceReserved="false" >
 
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://www.facebook.com"
+                />
+        </Preference>
+        <SeekBarPreference
+            android:key="key_rate_app"
+            android:title="Rate our app!"
+            android:max= "5"
+            android:defaultValue="3"
+            app:iconSpaceReserved="false"
+
+
+            />
     </PreferenceCategory>
 
 </PreferenceScreen>

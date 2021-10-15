@@ -30,6 +30,10 @@
             android:title="@string/title_delete_account"
             app:icon="@android:drawable/ic_menu_delete" />
 
+
+
+
+
     </PreferenceCategory>
 
 </PreferenceScreen>
